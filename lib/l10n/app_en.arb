@@ -1,0 +1,39 @@
+{
+  "textOnBoarding1": "Order fast",
+  "subTextOnBoarding1": "Choosing fresh and delicious food right at home, simply select and order.",
+  "textOnBoarding2": "Fast shipping",
+  "subTextOnBoarding2": "Fast delivery is now simple and fast. Orders will be shipped quickly to you.",
+  "textOnBoarding3": "Reflect and evaluate",
+  "subTextOnBoarding3": "The enthusiasm to contribute ideas from customers, helping the service more and more developed.",
+  "nextpageVive": "Next",
+  "headerFreshText": "Fresh",
+  "headerFreshSubText": "BOX",
+  "text1": "Let’s Sign You In",
+  "text2": "Welcome back, you’ve been missed!",
+  "mobile": "Mobile",
+  "password": "Password",
+  "hintText1": "Enter your Mobile",
+  "hintText2": "Enter your Password",
+  "forget": "ForgetPassword?",
+  "login": "Login",
+
+  "text1t": "Let’s get Started",
+  "text2t": "Create an account to continue!",
+  "hintName": "Enter your Name",
+  "hintCity": "City",
+  "hintGander": "Enter your Gander",
+  "signUp": "SignUp",
+
+  "span1": "Don't have an account?",
+  "span2": "Sign Up",
+  "face": "Facebook",
+  "pin_old_text" : "Old Pin",
+  "pin_new_text" : "New Pin",
+
+  "reset_text1" : "Reset Your Password",
+  "reset_text2" : "At least 9 characters, with uppercase and lowercase letters",
+  "reset_new_text1" : "Password",
+  "reset_new_text2" : "Confirm Password",
+  "reset_Botton" : "Continue"
+
+}

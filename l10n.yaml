@@ -1,0 +1,4 @@
+#l10n.yaml
+app-dir: lip/l10n
+template-arb-file: app_en.arb
+output-localizations-file: app_localizations.dart
