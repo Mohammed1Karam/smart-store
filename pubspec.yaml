@@ -40,7 +40,11 @@ dependencies:
   http: ^0.13.3
   country_picker: ^2.0.6
   easy_dialogs: ^2.0.0
-  provider: ^5.0.0
+  get: ^4.3.4
+  get_storage: ^2.0.3
+  carousel_slider: ^4.0.0
+  percent_indicator: ^3.3.0-nullsafety.1
+  cached_network_image: ^3.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_store/api/controllers/user_api_controller.dart';
+import 'package:get/get.dart';
+import 'package:smart_store/api/controllers/user_controller.dart';
 import 'package:smart_store/utils/app_colors.dart';
 import 'package:smart_store/utils/helpers.dart';
 import 'package:smart_store/widget/list_tile_setting.dart';
@@ -14,7 +15,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   late TextEditingController _passwordTextEditingController;
-
+  final userGX = Get.find<UserController>();
   @override
   void initState() {
     // TODO: implement initState
@@ -111,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 color: AppColors.COLOR,
                 onTap: () {
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, '/AddressesScreen');
                 },
               ),
               SizedBox(height: 10),
@@ -148,7 +149,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
   Future logout() async {
     //TODO: PERFORM LOGOUT API REQUEST
-    bool loggedOut = await UserApiController().logout();
+    bool loggedOut = await userGX.logout();
     if (loggedOut) {
       Navigator.pushNamedAndRemoveUntil(
           context, '/LoginScreen', (route) => false);

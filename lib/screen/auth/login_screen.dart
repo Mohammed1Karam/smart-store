@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_store/api/controllers/user_api_controller.dart';
+import 'package:get/get.dart';
+import 'package:smart_store/api/controllers/user_controller.dart';
 import 'package:smart_store/model/user.dart';
+import 'package:smart_store/screen/bottom_nav/main_screen.dart';
 import 'package:smart_store/stroage/user_share_pref_controller.dart';
 import 'package:smart_store/utils/app_colors.dart';
 import 'package:smart_store/utils/helpers.dart';
@@ -13,7 +15,6 @@ import 'package:smart_store/widget/text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -24,10 +25,13 @@ class _LoginScreenState extends State<LoginScreen> {
   late TapGestureRecognizer _tapGestureRecognizer;
   late TapGestureRecognizer _tapNewGestureRecognizer;
 
+  final userGX = Get.put(UserController());
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _mobileTextEditingController = TextEditingController();
     _passwordTextEditingController = TextEditingController();
 
@@ -38,9 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
       ..onTap = tapNewGestureRecognizer;
   }
 
-  void navigateToForgetPassword() => Navigator.pushNamed(context, '/ForgetPasswordScreen');
+  void navigateToForgetPassword() =>
+      Navigator.pushNamed(context, '/ForgetPasswordScreen');
 
-  void tapNewGestureRecognizer() => Navigator.pushNamed(context, '/SignUpScreen');
+  void tapNewGestureRecognizer() =>
+      Navigator.pushNamed(context, '/SignUpScreen');
 
   @override
   void dispose() {
@@ -129,8 +135,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: SizeConfig.scaleHeight(40)),
               ElevatedButtonA(
-                onPressed: () async{
-                 await performLogin();
+                onPressed: () async {
+                  await performLogin();
                 },
                 text: AppLocalizations.of(context)?.login ?? '',
                 icon: Icons.login,
@@ -172,16 +178,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: AppLocalizations.of(context)?.face ?? '',
                   icon: Icons.face,
                   color: AppColors.Fas_COLOR),
-
             ],
           ),
         ),
       ),
     );
   }
+
   Future performLogin() async {
     if (checkData()) {
-      await login();
+      final result = await userGX.login(
+          mobile: _mobileTextEditingController.text,
+          password: _passwordTextEditingController.text);
+
+     if(result == true){
+       Future.delayed(Duration.zero, () {
+         Navigator.pushReplacementNamed(context, '/MainScreen');
+       });
+     }
     }
   }
 
@@ -198,22 +212,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     return false;
   }
-
-  Future login() async {
-    //TODO: LOGIN
-    User? user = await UserApiController().login(
-      context,
-      _mobileTextEditingController.text,
-      _passwordTextEditingController.text,
-    );
-    //TODO: SUCCESS -> SHOW SNACK BAR
-    if (user != null) {
-      UserSharedPrefController().save(user);
-      Helpers.showSnackBar(context: context, message: 'Logged in successfully');
-      Future.delayed(Duration(seconds: 2), () {
-        Navigator.pushReplacementNamed(context, '/MainScreen');
-      });
-    }
-  }
-
 }

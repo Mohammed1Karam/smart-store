@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smart_store/api/controllers/CitiesController.dart';
+import 'package:smart_store/api/controllers/user_controller.dart';
+import 'package:smart_store/screen/auth/pin_password.dart';
 import 'package:smart_store/utils/app_colors.dart';
 import 'package:smart_store/utils/size_config.dart';
 import 'package:smart_store/widget/elevated_buttonA.dart';
@@ -16,14 +20,20 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
 
 
-
   late TextEditingController _nameTextEditingController;
   late TextEditingController _mobileTextEditingController;
   late TextEditingController _passwordTextEditingController;
   late TextEditingController _cityTextEditingController;
   late TextEditingController _genderTextEditingController;
 
+  String _selectedGender = 'M';
   bool isSwitched = false;
+
+  final userGX = Get.put(UserController());
+
+//  final cities = Get.put(CityController());
+//  late Future<bool> categoriesIndex;
+//
 
   @override
   void initState() {
@@ -34,6 +44,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _passwordTextEditingController = TextEditingController();
     _cityTextEditingController = TextEditingController();
     _genderTextEditingController = TextEditingController();
+
+//    print('0000000000');
+//    categoriesIndex = _controller.citiesIndex();
   }
 
   @override
@@ -49,26 +62,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   final List<String> _ringTones = [
-    'None',
-    'Callisto',
-    'Ganymede',
-    'Luna',
-    'Oberon',
-    'Phobos',
-    'Dione',
-    'Jungle Gym',
-    'Ukulele',
-    'Snowflakes',
+//    'None',
+//    'Callisto',
+//    'Ganymede',
+//    'Luna',
+//    'Oberon',
+//    'Phobos',
+//    'Dione',
+//    'Jungle Gym',
+//    'Ukulele',
+//    'Snowflakes',
   ];
   final List<String> _ringGanders = [
     'Male',
     'Female',
   ];
-  String _ringTone = "None";
+  String _ringTone = "Gaza";
   String _ringGander = "Male";
 
   @override
   Widget build(BuildContext context) {
+//    for (int i = 0; i < _controller.cities.length; i++) {
+//      _ringTones.insert(i, _controller.cities[i].nameEn);
+//    }
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 27),
@@ -78,70 +94,91 @@ class _SignUpScreenState extends State<SignUpScreen> {
             HeaderText(),
             SizedBox(height: SizeConfig.scaleHeight(25)),
             MyText(
-                text: AppLocalizations.of(context)?.text1t ?? '',
+                text: AppLocalizations
+                    .of(context)
+                    ?.text1t ?? '',
                 fontSize: SizeConfig.scaleTextFont(21),
                 fontWeight: FontWeight.w500,
                 color: AppColors.Auth_COLOR),
             SizedBox(height: SizeConfig.scaleHeight(5)),
             MyText(
-                text: AppLocalizations.of(context)?.text2t ?? '',
+                text: AppLocalizations
+                    .of(context)
+                    ?.text2t ?? '',
                 fontSize: SizeConfig.scaleTextFont(15),
                 fontWeight: FontWeight.w500,
                 color: AppColors.Auth_COLOR),
             SizedBox(height: SizeConfig.scaleHeight(40)),
             TextFieldA(
-              hintText: AppLocalizations.of(context)?.hintName ?? '',
+              hintText: AppLocalizations
+                  .of(context)
+                  ?.hintName ?? '',
               textInputType: TextInputType.emailAddress,
               controller: _nameTextEditingController,
             ),
             TextFieldA(
-              hintText: AppLocalizations.of(context)?.hintText1 ?? '',
+              hintText: AppLocalizations
+                  .of(context)
+                  ?.hintText1 ?? '',
               textInputType: TextInputType.emailAddress,
               controller: _mobileTextEditingController,
             ),
             TextFieldA(
-              hintText: AppLocalizations.of(context)?.hintText2 ?? '',
+              hintText: AppLocalizations
+                  .of(context)
+                  ?.hintText2 ?? '',
               textInputType: TextInputType.emailAddress,
               controller: _passwordTextEditingController,
             ),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: AppColors.COLOR)),
-              elevation: 2,
-              child: ListTile(
-                onTap: _openRingtoneDialog,
-                title: Text(AppLocalizations.of(context)?.hintCity ?? ''),
-                subtitle: Text(_ringTone),
-                leading: Icon(Icons.location_city),
-                trailing: Icon(Icons.arrow_forward_rounded),
-              ),
+            TextFieldA(
+              hintText: AppLocalizations
+                  .of(context)
+                  ?.hintCity ?? '',
+              textInputType: TextInputType.emailAddress,
+              controller: _cityTextEditingController,
             ),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: AppColors.Auth_COLOR),
+
+            ListTile(
+              leading: Radio(
+                value: 'M',
+                groupValue: _selectedGender,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = 'M';
+                  });
+                },
               ),
-              elevation: 2,
-              child: ListTile(
-                onTap: _openRingtoneDialogGander,
-                title: Text(AppLocalizations.of(context)?.hintCity ?? ''),
-                subtitle: Text(_ringGander),
-                leading: Icon(Icons.accessibility),
-                trailing: Icon(Icons.arrow_forward_rounded),
+              title: Text('Male'),
+            ),
+            ListTile(
+              leading: Radio(
+                value: 'F',
+                groupValue: _selectedGender,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = 'F';
+                  });
+                },
               ),
+              title: Text('Female'),
             ),
             SizedBox(height: SizeConfig.scaleHeight(30)),
             ElevatedButtonA(
-              onPressed: () {},
-              text: AppLocalizations.of(context)?.login ?? '',
+              onPressed: () {
+                register();
+              },
+              text: AppLocalizations
+                  .of(context)
+                  ?.login ?? '',
               icon: Icons.login,
               color: AppColors.COLOR,
             ),
             SizedBox(height: SizeConfig.scaleHeight(20)),
             ElevatedButtonA(
                 onPressed: () {},
-                text: AppLocalizations.of(context)?.face ?? '',
+                text: AppLocalizations
+                    .of(context)
+                    ?.face ?? '',
                 icon: Icons.face,
                 color: AppColors.Fas_COLOR),
           ],
@@ -153,12 +190,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   _openRingtoneDialog() {
     showDialog(
         context: context,
-        builder: (context) => SingleChoiceConfirmationDialog<String>(
-            title: Text('Phone ringtone'),
-            initialValue: _ringTone,
-            items: _ringTones,
-            onSelected: _onSelected,
-            onSubmitted: _onSubmitted));
+        builder: (context) =>
+            SingleChoiceConfirmationDialog<String>(
+                title: Text('Phone ringtone'),
+                initialValue: _ringTone,
+                items: _ringTones,
+                onSelected: _onSelected,
+                onSubmitted: _onSubmitted));
   }
 
   void _onSelected(String value) {
@@ -179,12 +217,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   _openRingtoneDialogGander() {
     showDialog(
         context: context,
-        builder: (context) => SingleChoiceConfirmationDialog<String>(
-            title: Text('Phone ringtone'),
-            initialValue: _ringGander,
-            items: _ringGanders,
-            onSelected: _onSelectedGander,
-            onSubmitted: _onSubmittedGander));
+        builder: (context) =>
+            SingleChoiceConfirmationDialog<String>(
+                title: Text('Phone ringtone'),
+                initialValue: _ringGander,
+                items: _ringGanders,
+                onSelected: _onSelectedGander,
+                onSubmitted: _onSubmittedGander));
   }
 
   void _onSelectedGander(String value) {
@@ -200,4 +239,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _ringTone = value;
     });
   }
+
+  Future register() async {
+    bool status = await userGX.register(
+        username: _nameTextEditingController.text,
+        mobile: _mobileTextEditingController.text,
+        password: _passwordTextEditingController.text,
+        gender: _selectedGender,
+        cityId: [ _cityTextEditingController.text].length,
+    );
+//        cityId: cities.cities.value[1].id);
+//      context,
+//      name: _.text,
+//      mobile: _mobileTextEditingController.text,
+//      password: _passwordTextEditingController.text,
+//      gender: _selectedGender,
+//      STORE_API_KEY: '58552860-cae5-4f85-854f-3ba5189256f6',
+//      city_id: _cityTextEditingController.text);
+//    resetPassword(
+//      context,
+//      password: _passwordTextEditingController.text,
+//      email: widget.email,
+//      code: getCode(),
+//    );
+    if (status) {
+      print('00000');
+//       Navigator.pushNamed(context, '/PinPassword');
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => PinPasswordScreen(mobile: _mobileTextEditingController.text)
+    ));
+      print('11111');
+    }
+  }
 }
+//late TextEditingController _nameTextEditingController;
+//late TextEditingController _mobileTextEditingController;
+//late TextEditingController _passwordTextEditingController;
+//late TextEditingController _cityTextEditingController;
+//late TextEditingController _genderTextEditingController;
+
+
+

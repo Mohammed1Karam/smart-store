@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_store/api/controllers/user_api_controller.dart';
+import 'package:smart_store/api/controllers/user_controller.dart';
 import 'package:smart_store/screen/auth/pin_screen.dart';
 import 'package:smart_store/screen/auth/reset_password_screen.dart';
 import 'package:smart_store/utils/app_colors.dart';
@@ -139,8 +139,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   Future forgetPassword() async {
     //
-    bool status = await UserApiController()
-        .forgetPassword(context, mobile: _mobileTextEditingController.text);
+    bool status = await UserController().forgetPassword(context, mobile: _mobileTextEditingController.text);
     if (status) {
       Navigator.pushReplacement(
         context,

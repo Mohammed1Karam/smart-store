@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
-import 'package:rating_dialog/rating_dialog.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:smart_store/screen/auth/login_screen.dart';
 import 'package:smart_store/screen/auth/sign_up_screen.dart';
+import 'package:smart_store/screen/categories/prducts_screen.dart';
 import 'package:smart_store/screen/launch_screen.dart';
 import 'package:smart_store/screen/on_boarding/on_boarding_screen.dart';
-import 'package:smart_store/stroage/share_pref_controller.dart';
-import 'package:store_redirect/store_redirect.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'get/cities_getx_controller.dart';
+import 'package:smart_store/screen/settings/address/add_address_screen.dart';
+import 'package:smart_store/screen/settings/address/addresses_screen.dart';
 import 'screen/auth/forget_password_screen.dart';
 import 'screen/bottom_nav/card_screen.dart';
 import 'screen/bottom_nav/main_screen.dart';
@@ -23,14 +23,15 @@ import 'screen/settings/change_password_screen.dart';
 import 'screen/settings/settings_screen.dart';
 import 'stroage/language_change_notifier.dart';
 
-void main() async {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPrefController().initSharePreferences();
+  await GetStorage.init();
   runApp(MainApp());
+
 }
 
 class MainApp extends StatefulWidget {
-  // const MainApp({Key? key}) : super(key: key);
+  const MainApp({Key? key}) : super(key: key);
 
   @override
   _MainAppState createState() => _MainAppState();
@@ -39,23 +40,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(
-        // create: (context) => CategoryProviderNotifier(),
-        create: (context) => LanguageChangeNotifier(
-          Locale(
-            SharedPrefController().currentLanguage(),
-          ),
-        ),
-      ),
-    ], child: AppMainMaterial());
-  }
-}
-
-class AppMainMaterial extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -64,10 +49,10 @@ class AppMainMaterial extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate
       ],
       supportedLocales: [
-        Locale('ar', ''),
         Locale('en', ''),
+        Locale('ar', ''),
       ],
-      locale: Provider.of<LanguageChangeNotifier>(context).locale,
+      locale: Locale('en'),
       initialRoute: '/LunchScreen',
       routes: {
         '/LunchScreen': (context) => LaunchScreen(),
@@ -81,11 +66,14 @@ class AppMainMaterial extends StatelessWidget {
         '/PopularFoodScreen': (context) => LatestProductsScreen(),
         '/SettingsScreen': (context) => SettingsScreen(),
         '/NotificationScreen': (context) => NotificationScreen(),
-        '/SubCategoriesScreen': (context) => SubCategoriesScreen(),
+      //  '/SubCategoriesScreen': (context) => SubCategoriesScreen(),
+//        '/ProductScreen': (context) => ProductScreen(),
         '/ChangePasswordScreen': (context) => ChangePasswordScreen(),
         '/AboutScreen': (context) => AboutScreen(),
         '/ProductsYouMayLikeScreen': (context) => ProductsYouMayLikeScreen(),
         '/CardScreen': (context) => CardScreen(),
+        '/AddressesScreen': (context) => AddressesScreen(),
+        '/AddAddressScreen': (context) => AddAddressScreen(),
       },
     );
   }

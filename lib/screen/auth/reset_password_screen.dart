@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smart_store/api/controllers/user_api_controller.dart';
+import 'package:get/get.dart';
+import 'package:smart_store/api/controllers/CitiesController.dart';
+import 'package:smart_store/api/controllers/user_controller.dart';
 import 'package:smart_store/utils/app_colors.dart';
 import 'package:smart_store/utils/helpers.dart';
 import 'package:smart_store/utils/size_config.dart';
@@ -32,6 +34,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   late TextEditingController _passwordTextEditingController;
   late TextEditingController _passwordConfirmationTextEditingController;
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -48,7 +51,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     _secondCodeTextEditingController = TextEditingController();
     _thirdCodeTextEditingController = TextEditingController();
     _fourthCodeTextEditingController = TextEditingController();
+
+
   }
+
+
 
   @override
   void dispose() {
@@ -363,7 +370,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   Future resetPassword() async {
-    bool status = await UserApiController().resetPassword(
+    bool status = await UserController().resetPassword(
       context,
       password: _passwordTextEditingController.text,
       mobile: widget.mobile,
