@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:smart_store/db/db.dart';
 import 'package:smart_store/screen/auth/login_screen.dart';
 import 'package:smart_store/screen/auth/sign_up_screen.dart';
 import 'package:smart_store/screen/categories/prducts_screen.dart';
@@ -26,6 +27,7 @@ import 'stroage/language_change_notifier.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  await DB().initDatabase();
   runApp(MainApp());
 
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:smart_store/api/controllers/AddressesController.dart';
+import '../../../model/AddressesController.dart';
 import 'package:smart_store/api/controllers/CitiesController.dart';
 import 'package:smart_store/screen/settings/address/add_address_screen.dart';
 import 'package:smart_store/utils/app_colors.dart';

@@ -96,6 +96,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   childAspectRatio: 460 / 164,
+
                 ),
                 itemCount: _controller.subCategories.length,
                 itemBuilder: (BuildContext context, int index) {

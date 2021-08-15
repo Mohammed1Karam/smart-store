@@ -11,10 +11,22 @@ class ApiSettings {
   static const USERS_activate = _API_BASE_URL + 'auth/activate';
 
   static const CITY_GET = _API_BASE_URL + 'cities';
+  static const INDEX_PRODUCTS_URL=_API_BASE_URL+"sub-categories/";
+
   static const CATEGORIES_GET = _API_BASE_URL + 'categories';
   static const SUB_CATEGORIES_GET = _API_BASE_URL + 'categories/';
   static const PRODUCT_GET = _API_BASE_URL + 'sub-categories/';
+
+  static const PRODUCT_DETAILS_URL=_API_BASE_URL+"products/";
+  static const RATE_PRODUCT_URL=_API_BASE_URL+"products/rate";
+  static const FAVORITE_PRODUCT_URL=_API_BASE_URL+"favorite-products";
+
   static const HOME = _API_BASE_URL + 'home';
 
   static const ADDRESSES= _API_BASE_URL + 'addresses';
+
+  static const CARDS_CRUD_URL= _API_BASE_URL+"payment-cards";
+
+  static const Favorite_products_Get = _API_BASE_URL + 'favorite-products';
+//  static const ADDRESSES= _API_BASE_URL + 'addresses';
 }

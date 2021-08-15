@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:smart_store/api/controllers/CitiesController.dart';
 import 'package:smart_store/api/controllers/user_controller.dart';
 import 'package:smart_store/model/address.dart';
-import '../api_settings.dart';
+import '../api/api_settings.dart';
 import 'dart:io';
 import 'dart:convert';
 

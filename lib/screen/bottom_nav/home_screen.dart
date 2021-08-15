@@ -81,33 +81,33 @@ class _HomeScreenState extends State<HomeScreen> {
               return ListView(
                   children: [
                 SizedBox(height: SizeConfig.scaleHeight(10)),
-                SizedBox(
-                  height: SizeConfig.scaleHeight(190),
-                  width: double.infinity,
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      enlargeCenterPage: true,
-                      enableInfiniteScroll: false,
-                      autoPlay: true,
-                    ),
-                    items: imageList
-                        .map((e) => ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: <Widget>[
-                                  Image.network(
-                                    e,
-                                    width: 1050,
-                                    height: 350,
-                                    fit: BoxFit.fill,
-                                  )
-                                ],
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ),
+//                SizedBox(
+//                  height: SizeConfig.scaleHeight(190),
+//                  width: double.infinity,
+//                  child: CarouselSlider(
+//                    options: CarouselOptions(
+//                      enlargeCenterPage: true,
+//                      enableInfiniteScroll: false,
+//                      autoPlay: true,
+//                    ),
+//                    items: imageList
+//                        .map((e) => ClipRRect(
+//                              borderRadius: BorderRadius.circular(8),
+//                              child: Stack(
+//                                fit: StackFit.expand,
+//                                children: <Widget>[
+//                                  Image.network(
+//                                    e,
+//                                    width: 1050,
+//                                    height: 350,
+//                                    fit: BoxFit.fill,
+//                                  )
+//                                ],
+//                              ),
+//                            ))
+//                        .toList(),
+//                  ),
+//                ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
